@@ -1,0 +1,27 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Add New Film</title>
+</head>
+<body>
+	
+	<form action="AddFilm.do" method="POST">
+        <label for="title">Title:</label> <input type="text" name="title">
+        <br> <label for="description">Description:</label> <input
+            type="text" name="description"> <br> <label
+            for="releaseYear">Release Year:</label> <input type="number"
+            name="releaseYear"> <br>
+        <h3>Choose a rating:</h3>
+        <label><input type="radio" name="rating" value="G">G</label> <label><input
+            type="radio" name="rating" value="PG">PG  </label> <label><input
+            type="radio" name="rating" value="PG13">PG13</label> <label><input
+            type="radio" name="rating" value="R">R</label> <label><input
+            type="radio" name="rating" value="NC17">"NC17"</label> <br> 
+            <input type="submit" value="Add ">
+    </form>
+	
+	</form:form>
+</body>
+</html>
