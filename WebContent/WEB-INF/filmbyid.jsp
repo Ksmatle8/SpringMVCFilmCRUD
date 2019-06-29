@@ -31,5 +31,7 @@
 	<p>No Films Found</p>
 	</c:otherwise>
   </c:choose>
+  <a href="update.jsp">Edit Film Information</a><br>
+  <a href="index.html">Go Home</a>
 </body>
 </html>

@@ -57,9 +57,9 @@ public class FilmController {
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("WEB-INF/update.jsp");
 		mv.addObject("film", film);
-		
 		return mv;
 	}
+	
 	
 //	@RequestMapping(path="DeleteFilm.do", method=RequestMethod.POST)
 //	public ModelAndView deleteFilmById(int filmId) {
