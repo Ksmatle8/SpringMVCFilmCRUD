@@ -12,12 +12,16 @@
 	<c:choose>
 		<c:when test="${! empty films }">
 			<c:forEach items="${films}" var="film">
-				<li>${film.title}</li>
+				<a href="findfilmbyid.do" name="fid" value="${film.id }">${film.title}</a>
 				<br>
 				<li>${film.id}</li>
 				<br>
 				<li>${film.description}</li>
 				<br>
+				<form action="findfilmbyid.do">
+					<input type="hidden" name="FID" value="${film.id }" /> <input
+						type="submit" action="findfilmbyid.do" value="Single Page"></>
+				</form>
 				<p>==========================</p>
 			</c:forEach>
 

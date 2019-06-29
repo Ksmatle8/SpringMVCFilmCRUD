@@ -21,6 +21,7 @@ public class FilmController {
 	@RequestMapping(path = "findfilmbyid.do", method = RequestMethod.GET)
 	public ModelAndView getFilmByID(@RequestParam("FID") int fid) {
 		ModelAndView mv = new ModelAndView();
+		System.out.println(fid);
 
 		Film film = dao.findFilmById(fid);
 		mv.addObject("film", film);
