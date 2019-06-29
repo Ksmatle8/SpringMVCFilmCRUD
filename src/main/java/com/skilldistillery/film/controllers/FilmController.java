@@ -12,39 +12,49 @@ import org.springframework.web.servlet.ModelAndView;
 import com.skilldistillery.film.dao.FilmDAO;
 import com.skilldistillery.film.entities.Film;
 
-
 @Controller
 public class FilmController {
-	
+
 	@Autowired
 	private FilmDAO dao;
-	
-	@RequestMapping(path="findfilmbyid.do", method=RequestMethod.GET)
+
+	@RequestMapping(path = "findfilmbyid.do", method = RequestMethod.GET)
 	public ModelAndView getFilmByID(@RequestParam("FID") int fid) {
 		ModelAndView mv = new ModelAndView();
-		
+
 		Film film = dao.findFilmById(fid);
 		mv.addObject("film", film);
 		mv.setViewName("WEB-INF/filmbyid.jsp");
-		
-		return  mv;
+
+		return mv;
 	}
-	@RequestMapping(path="AddFilm.do", method=RequestMethod.POST)
+
+	@RequestMapping(path = "AddFilm.do", method = RequestMethod.POST)
 	public ModelAndView addFilmByID(Film film) {
 		int newId = dao.addFilm(film);
-		System.out.println(newId);
+		// System.out.println(newId);
 		Film newFilm = dao.findFilmById(newId);
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("film", newFilm);
 		mv.setViewName("WEB-INF/displayNewFilm.jsp");
 		return mv;
 	}
+
 	@RequestMapping(path="filmbykeyword.do", method=RequestMethod.GET)
-	public ModelAndView findFilmByKeyword(String filmKeyword) {
-		List<Film> films = dao.findFilmByKeyword(filmKeyword);
-		ModelAndView mv = new ModelAndView();
-		mv.addObject("film", films);
-		mv.setViewName("WEB-INF/displayNewFilm.jsp");
-		return mv;
-	}
+    public ModelAndView findFilmByKeyword(String filmKeyword) {
+        List<Film> films = dao.findFilmByKeyword(filmKeyword);
+        ModelAndView mv = new ModelAndView();
+        mv.addObject("film", films);
+        mv.setViewName("WEB-INF/displayNewFilm.jsp");
+        return mv;
+    }
+	
+//	@RequestMapping(path="DeleteFilm.do", method=RequestMethod.POST)
+//	public ModelAndView deleteFilmById(int filmId) {
+//	try {
+//		dao.
+//	}catch(){
+//		
+//	}
+//  }
 }
