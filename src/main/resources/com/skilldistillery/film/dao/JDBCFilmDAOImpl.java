@@ -122,9 +122,6 @@ public class JDBCFilmDAOImpl implements FilmDAO {
 			while(keys.next()) {
 				int newId = keys.getInt(1);
 				unusedId = newId;
-				System.out.println("New Film Added: " + newId);
-				newFilm = findFilmById(newId);
-				System.out.println(newFilm);
 			}
 			conn.commit();
 			conn.close();
@@ -135,4 +132,36 @@ public class JDBCFilmDAOImpl implements FilmDAO {
 		}
 		return unusedId;
 	}
+	public int updateFilm(Film film) {
+		Film newFilm = null;
+		int unusedId = 0;
+		try {
+			Connection conn = DriverManager.getConnection(URL, user, pass);
+			conn.setAutoCommit(false);
+			
+			String sql = "UPDATE film Set title = ?, description = ?, release_year = ?, language_id = ?, rental_duration = ?, rental_rate = ?, length = ?, replacement_cost = ?, rating = ?, special_features = ? WHERE id = ?;";
+			PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+			
+			stmt.setString(1, film.getTitle());
+			stmt.setString(2, film.getDescription());
+			stmt.setInt(3, film.getReleaseYear());
+			stmt.setString(4, film.getRating());
+			
+			int uc = stmt.executeUpdate();
+			
+			ResultSet keys = stmt.getGeneratedKeys();
+			while(keys.next()) {
+				int newId = keys.getInt(1);
+				unusedId = newId;
+			}
+			conn.commit();
+			conn.close();
+			stmt.close();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return unusedId;
+	}
+	
 }
