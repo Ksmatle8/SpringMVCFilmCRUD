@@ -48,6 +48,15 @@ public class FilmController {
         mv.setViewName("WEB-INF/displayNewFilm.jsp");
         return mv;
     }
+	@RequestMapping(path="update.do", method=RequestMethod.GET)
+	public ModelAndView updateFilm(int filmId) {
+		Film film = dao.findFilmById(filmId);
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("WEB-INF/update.jsp");
+		mv.addObject("film", film);
+		
+		return mv;
+	}
 	
 //	@RequestMapping(path="DeleteFilm.do", method=RequestMethod.POST)
 //	public ModelAndView deleteFilmById(int filmId) {
