@@ -32,7 +32,7 @@ public class FilmController {
 	@RequestMapping(path = "AddFilm.do", method = RequestMethod.POST)
 	public ModelAndView addFilmByID(Film film) {
 		int newId = dao.addFilm(film);
-		// System.out.println(newId);
+		System.out.println(newId);
 		Film newFilm = dao.findFilmById(newId);
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("film", newFilm);
@@ -42,10 +42,12 @@ public class FilmController {
 
 	@RequestMapping(path="filmbykeyword.do", method=RequestMethod.GET)
     public ModelAndView findFilmByKeyword(String filmKeyword) {
+		System.out.println(filmKeyword);
         List<Film> films = dao.findFilmByKeyword(filmKeyword);
+        System.out.println("through the DAO" + films.size());
         ModelAndView mv = new ModelAndView();
-        mv.addObject("film", films);
-        mv.setViewName("WEB-INF/displayNewFilm.jsp");
+        mv.addObject("films", films);
+        mv.setViewName("WEB-INF/filmList.jsp");
         return mv;
     }
 	

@@ -67,10 +67,11 @@ public class JDBCFilmDAOImpl implements FilmDAO {
 	public List<Film> findFilmByKeyword(String filmKeyword) {
 
 		List<Film> films = new ArrayList<>();
+		System.out.println("In the dao, keyword = " + filmKeyword);
 		try {
 			Connection conn = DriverManager.getConnection(URL, user, pass);
-			String sql = "SELECT film.id, film.title, film.description, film.release_year, language.name,"
-					+ "film.rental_duration, film.rental_rate, film.length, film.replacement_cost,"
+			String sql = "SELECT film.id, film.title, film.description, film.release_year, language.name, "
+					+ "film.rental_duration, film.rental_rate, film.length, film.replacement_cost, "
 					+ "film.rating, film.special_features"
 					+ " FROM film Join language on film.language_id = language.id WHERE film.title LIKE ? OR film.description LIKE ?";
 			PreparedStatement stmt = conn.prepareStatement(sql);
@@ -79,17 +80,17 @@ public class JDBCFilmDAOImpl implements FilmDAO {
 			ResultSet rs = stmt.executeQuery();
 			while (rs.next()) {
 				Film film = new Film();
-				film.setId(rs.getInt("id"));
-				film.setTitle(rs.getString("title"));
-				film.setDescription(rs.getString("description"));
-				film.setReleaseYear(rs.getInt("release_year"));
+				film.setId(rs.getInt("film.id"));
+				film.setTitle(rs.getString("film.title"));
+				film.setDescription(rs.getString("film.description"));
+				film.setReleaseYear(rs.getInt("film.release_year"));
 				film.setLanguageId(rs.getString("language.name"));
-				film.setRentalDuration(rs.getInt("rental_Duration"));
-				film.setRentalRate(rs.getDouble("rental_rate"));
-				film.setLength(rs.getInt("length"));
-				film.setReplacementCost(rs.getDouble("replacement_cost"));
-				film.setRating(rs.getString("rating"));
-				film.setSpecialFeatures(rs.getString("special_features"));
+				film.setRentalDuration(rs.getInt("film.rental_Duration"));
+				film.setRentalRate(rs.getDouble("film.rental_rate"));
+				film.setLength(rs.getInt("film.length"));
+				film.setReplacementCost(rs.getDouble("film.replacement_cost"));
+				film.setRating(rs.getString("film.rating"));
+				film.setSpecialFeatures(rs.getString("film.special_features"));
 				films.add(film);
 			}
 			rs.close();
@@ -108,7 +109,7 @@ public class JDBCFilmDAOImpl implements FilmDAO {
 			Connection conn = DriverManager.getConnection(URL, user, pass);
 			conn.setAutoCommit(false);
 
-			String sql = "INSERT INTO film (title, description, language_id, release_year, rating) VALUE (?, ?, 1, ?,?)";
+			String sql = "INSERT INTO film (title, description, language_id, release_year, rating) VALUE (?, ?, 1, ?, ?)";
 			PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 			
 			stmt.setString(1, film.getTitle());
@@ -121,6 +122,7 @@ public class JDBCFilmDAOImpl implements FilmDAO {
 			ResultSet keys = stmt.getGeneratedKeys();
 			while(keys.next()) {
 				int newId = keys.getInt(1);
+				System.out.println(newId);
 				unusedId = newId;
 			}
 			conn.commit();
