@@ -12,7 +12,6 @@
 <title>Find Film By Id</title>
 </head>
 <body>
-  <form action="updatePage.do" method="POST" >
 	  <c:choose>
 	   <c:when test="${! empty film }">
 		<h1>${film.title}</h1>
@@ -27,15 +26,20 @@
 		<li>Rating: ${film.rating}</li>
 		<li>Special Features: ${film.specialFeatures}</li>
 		</ul>
+  <form action="updatePage.do" method="POST" >
 		<input type="hidden" name="FID" value=${film.id}>
   		<input type="submit" value="Edit Film">Edit Film Information<br>
+  </form>
+ <form action="delete.do" method="POST" >
+		<input type="hidden" name="FID" value=${film.id}>
+  		<input type="submit" value="Delete Film">Delete Film <br>
+  </form>
 		</c:when>
 		<c:otherwise>
 		<p>No Films Found</p>
 		</c:otherwise>
 	  </c:choose>
 
-  </form>
   
   <a href="index.html">Go Home</a>
 </body>
