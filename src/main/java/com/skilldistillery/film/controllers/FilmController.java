@@ -74,7 +74,25 @@ public class FilmController {
 		mv.setViewName("WEB-INF/forms/update.jsp");
 		return mv;
 	}
+<<<<<<< HEAD
 
+=======
+	@RequestMapping(path = "delete.do", method = RequestMethod.POST)
+	public ModelAndView delete(@RequestParam("FID")int  filmId) throws Exception {
+		ModelAndView mv = new ModelAndView();
+		try {
+			dao.deleteFilm(filmId);
+			mv.setViewName("WEB-INF/deleteFilm.jsp");
+		} catch (SQLException e) {
+			mv.setViewName("error");
+			e.printStackTrace();
+		}
+		return mv;
+
+	}
+	
+	
+>>>>>>> 9c041ea3cfae859f9ba5dc891fe67dda05255ac3
 //	@RequestMapping(path="DeleteFilm.do", method=RequestMethod.POST)
 //	public ModelAndView deleteFilmById(int filmId) {
 //	try {

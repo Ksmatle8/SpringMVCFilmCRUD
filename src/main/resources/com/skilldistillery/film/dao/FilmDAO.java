@@ -15,5 +15,10 @@ public interface FilmDAO {
 	public List<Film> findFilmByKeyword(String filmKeyword);
 	public int addFilm(Film film);
 	public int updateFilm(Film film);
+<<<<<<< HEAD
 	public List<Actor> findActorsByFilmId(int fId);
+=======
+	public int deleteFilm(Integer filmId) throws Exception;
+	
+>>>>>>> 9c041ea3cfae859f9ba5dc891fe67dda05255ac3
 }
