@@ -53,8 +53,11 @@ public class FilmController {
 	
 	@RequestMapping(path="update.do", method=RequestMethod.POST)
 	public ModelAndView updateFilm(Film filmToUpdate) {
+		System.out.println(filmToUpdate);
 		int newId = dao.updateFilm(filmToUpdate);
-		Film film = dao.findFilmById(newId);
+		System.out.println(newId);
+		Film film = dao.findFilmById(filmToUpdate.getId());
+		System.out.println(film);
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("film", film);
 		mv.setViewName("WEB-INF/displayNewFilm.jsp");
