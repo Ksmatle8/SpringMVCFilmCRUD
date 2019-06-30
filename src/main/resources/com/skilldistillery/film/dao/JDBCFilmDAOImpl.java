@@ -52,9 +52,13 @@ public class JDBCFilmDAOImpl implements FilmDAO {
 				double repCost = rs.getDouble("replacement_cost");
 				String rating = rs.getString("rating");
 				String features = rs.getString("special_features");
-				// List<Actor> actors = findActorsByFilmId(filmId);
+				List<Actor> actors = findActorsByFilmId(filmId);
+				String category = findCategory(filmId);
+				if (category.isEmpty()) {
+					category ="Categorys not found";
+				}
 				film = new Film(filmId, title, desc, releaseYear, langId, rentDur, rate, length, repCost, rating,
-						features);
+						features, actors, category);
 			}
 			rs.close();
 			stmt.close();
@@ -63,6 +67,27 @@ public class JDBCFilmDAOImpl implements FilmDAO {
 			e.printStackTrace();
 		}
 		return film;
+	}
+	public String findCategory(int fId) {
+		String category = "";
+		
+		try {
+			Connection conn = DriverManager.getConnection(URL, user, pass);
+			String sql = "SELECT film.id, category.name FROM film "
+					+ "JOIN category WHERE film.id = category.id and film.id = ?";
+			PreparedStatement stmt = conn.prepareStatement(sql);
+			stmt.setInt(1, fId);
+			ResultSet catResult = stmt.executeQuery();
+			while (catResult.next()) {
+				category = catResult.getString(2);
+			}
+			catResult.close();
+			stmt.close();
+			conn.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return category;
 	}
 
 	public List<Film> findFilmByKeyword(String filmKeyword) {
