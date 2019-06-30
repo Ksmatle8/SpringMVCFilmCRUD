@@ -19,6 +19,11 @@
 				<li>Description: ${film.description}</li>
 				<li>Release year: ${film.releaseYear}</li>
 				<li>Rating: ${film.rating}</li>
+				<li>Cast:</li>
+        <c:forEach items="${film.actors}" var="actor">
+				<p>${actor.getFirstName()} ${actor.getLastName()}</p>
+				</c:forEach>
+        <li>${film.category}</li>
 			</ul>
 		</c:when>
 		<c:otherwise>

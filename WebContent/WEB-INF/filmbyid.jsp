@@ -25,6 +25,10 @@
 		<li>Replacement Cost: ${film.replacementCost}</li>
 		<li>Rating: ${film.rating}</li>
 		<li>Special Features: ${film.specialFeatures}</li>
+		<li>
+		<c:forEach items="${film.actors}" var="actor">
+						<p>${actor.getFirstName()} ${actor.getLastName()}</p>
+					</c:forEach></li>
 		</ul>
   <form action="updatePage.do" method="POST" >
 		<input type="hidden" name="FID" value=${film.id}>

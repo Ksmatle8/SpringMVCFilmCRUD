@@ -1,5 +1,6 @@
 package com.skilldistillery.film.controllers;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,9 +26,10 @@ public class FilmController {
 		Film film = dao.findFilmById(fid);
 		mv.addObject("film", film);
 		mv.setViewName("WEB-INF/filmbyid.jsp");
-
+		
 		return mv;
 	}
+	
 
 	@RequestMapping(path = "AddFilm.do", method = RequestMethod.POST)
 	public ModelAndView addFilmByID(Film film) {
@@ -40,18 +42,18 @@ public class FilmController {
 		return mv;
 	}
 
-	@RequestMapping(path="filmbykeyword.do", method=RequestMethod.GET)
+	@RequestMapping(path="filmbykeyword.do", method = RequestMethod.GET)
     public ModelAndView findFilmByKeyword(String filmKeyword) {
 		System.out.println(filmKeyword);
-        List<Film> films = dao.findFilmByKeyword(filmKeyword);
-        System.out.println("through the DAO" + films.size());
-        ModelAndView mv = new ModelAndView();
-        mv.addObject("films", films);
-        mv.setViewName("WEB-INF/filmList.jsp");
-        return mv;
-    }
-	
-	@RequestMapping(path="update.do", method=RequestMethod.POST)
+		List<Film> films = dao.findFilmByKeyword(filmKeyword);
+		System.out.println("through the DAO" + films.size());
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("films", films);
+		mv.setViewName("WEB-INF/filmList.jsp");
+		return mv;
+	}
+
+	@RequestMapping(path = "update.do", method = RequestMethod.POST)
 	public ModelAndView updateFilm(Film filmToUpdate) {
 		System.out.println(filmToUpdate);
 		int newId = dao.updateFilm(filmToUpdate);
@@ -63,8 +65,8 @@ public class FilmController {
 		mv.setViewName("WEB-INF/displayNewFilm.jsp");
 		return mv;
 	}
-	
-	@RequestMapping(path="updatePage.do", method=RequestMethod.POST)
+
+	@RequestMapping(path = "updatePage.do", method = RequestMethod.POST)
 	public ModelAndView updatePage(@RequestParam("FID") int fid) {
 		ModelAndView mv = new ModelAndView();
 		Film film = dao.findFilmById(fid);
@@ -72,8 +74,7 @@ public class FilmController {
 		mv.setViewName("WEB-INF/forms/update.jsp");
 		return mv;
 	}
-	
-	
+
 //	@RequestMapping(path="DeleteFilm.do", method=RequestMethod.POST)
 //	public ModelAndView deleteFilmById(int filmId) {
 //	try {

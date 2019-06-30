@@ -11,6 +11,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Component;
 
+import com.skilldistillery.film.entities.Actor;
 import com.skilldistillery.film.entities.Film;
 
 @Component
@@ -167,5 +168,33 @@ public class JDBCFilmDAOImpl implements FilmDAO {
 		}
 		return unusedId;
 	}
-	
+	@Override
+	public List<Actor> findActorsByFilmId(int fID) {
+		List<Actor> actors = new ArrayList<>();
+		int unusedId = 0;
+		Actor actor = null;
+		
+		try {
+			Connection conn = DriverManager.getConnection(URL, user, pass);
+			String sql = "SELECT actor.id, actor.first_name, actor.last_name "
+					+ " From film join film_actor ON film.id = film_actor.film_id"
+					+ " Join actor ON film_actor.actor_id = actor.id" + " WHERE film.id = ?";
+			PreparedStatement stmt = conn.prepareStatement(sql);
+			stmt.setInt(1, fID);
+			ResultSet actorResult = stmt.executeQuery();
+			while (actorResult.next()) {
+				actor = new Actor(); 
+				actor.setId(actorResult.getInt(1));
+				actor.setFirstName(actorResult.getString(2));
+				actor.setLastName(actorResult.getString(3));
+				actors.add(actor);
+			}
+			actorResult.close();
+			stmt.close();
+			conn.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return actors;
+	}
 }

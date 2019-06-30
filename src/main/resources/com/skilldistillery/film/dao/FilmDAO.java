@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Component;
 
+import com.skilldistillery.film.entities.Actor;
 import com.skilldistillery.film.entities.Film;
 
 
@@ -14,5 +15,5 @@ public interface FilmDAO {
 	public List<Film> findFilmByKeyword(String filmKeyword);
 	public int addFilm(Film film);
 	public int updateFilm(Film film);
-	
+	public List<Actor> findActorsByFilmId(int fId);
 }
