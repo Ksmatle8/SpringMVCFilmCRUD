@@ -168,8 +168,9 @@ public class JDBCFilmDAOImpl implements FilmDAO {
 		}
 		return unusedId;
 	}
+
 	@Override
-	public List<Actor> findActorsByFilmId(int fID) {
+	public List<Actor> findActorsByFilmId(int fID) throws SQLException {
 		List<Actor> actors = new ArrayList<>();
 		int unusedId = 0;
 		Actor actor = null;
@@ -221,5 +222,4 @@ public class JDBCFilmDAOImpl implements FilmDAO {
 		}
 		return filmId;
 	}
-
 }

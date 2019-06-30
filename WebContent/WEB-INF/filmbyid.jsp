@@ -12,39 +12,45 @@
 <title>Find Film By Id</title>
 </head>
 <body>
-	  <c:choose>
-	   <c:when test="${! empty film }">
-		<h1>${film.title}</h1>
-		<ul>
-		<li>Description: ${film.description}</li>
-		<li>Release year: ${film.releaseYear}</li>
-		<li>Language: ${film.languageId}</li>
-		<li>Rental Duration: ${film.rentalDuration}</li>
-		<li>Rental Rate: ${film.rentalRate}</li>
-		<li>Length: ${film.length}</li>
-		<li>Replacement Cost: ${film.replacementCost}</li>
-		<li>Rating: ${film.rating}</li>
-		<li>Special Features: ${film.specialFeatures}</li>
-		<li>
-		<c:forEach items="${film.actors}" var="actor">
-						<p>${actor.getFirstName()} ${actor.getLastName()}</p>
-					</c:forEach></li>
-		</ul>
-  <form action="updatePage.do" method="POST" >
-		<input type="hidden" name="FID" value=${film.id}>
-  		<input type="submit" value="Edit Film">Edit Film Information<br>
-  </form>
- <form action="delete.do" method="POST" >
-		<input type="hidden" name="FID" value=${film.id}>
-  		<input type="submit" value="Delete Film">Delete Film <br>
-  </form>
+	<c:choose>
+		<c:when test="${! empty film }">
+			<h1>${film.title}</h1>
+			<ul>
+				<li>Description: ${film.description}</li>
+				<li>Release year: ${film.releaseYear}</li>
+				<li>Language: ${film.languageId}</li>
+				<li>Rental Duration: ${film.rentalDuration}</li>
+				<li>Rental Rate: ${film.rentalRate}</li>
+				<li>Length: ${film.length}</li>
+				<li>Replacement Cost: ${film.replacementCost}</li>
+				<li>Rating: ${film.rating}</li>
+				<li>Special Features: ${film.specialFeatures}</li>
+				<li>Actors: <c:choose>
+						<c:when test="${! empty actors}">
+							<c:forEach items="${actors}" var="actor">
+								<tr>
+									<td>${actor.firstName}${actor.lastName}</td>
+								</tr>
+							</c:forEach>
+						</c:when>
+					</c:choose></li>
+
+			</ul>
+			<form action="updatePage.do" method="POST">
+				<input type="hidden" name="FID" value=${film.id}> <input
+					type="submit" value="Edit Film">Edit Film Information<br>
+			</form>
+			<form action="delete.do" method="POST">
+				<input type="hidden" name="FID" value=${film.id}> <input
+					type="submit" value="Delete Film">Delete Film <br>
+			</form>
 		</c:when>
 		<c:otherwise>
-		<p>No Films Found</p>
+			<p>No Films Found</p>
 		</c:otherwise>
-	  </c:choose>
+	</c:choose>
 
-  
-  <a href="index.html">Go Home</a>
+
+	<a href="index.html">Go Home</a>
 </body>
 </html>

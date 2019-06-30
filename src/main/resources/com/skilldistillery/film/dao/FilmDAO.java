@@ -1,5 +1,6 @@
 package com.skilldistillery.film.dao;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import org.springframework.stereotype.Component;
@@ -15,7 +16,8 @@ public interface FilmDAO {
 	public List<Film> findFilmByKeyword(String filmKeyword);
 	public int addFilm(Film film);
 	public int updateFilm(Film film);
-	public List<Actor> findActorsByFilmId(int fId);
+	public List<Actor> findActorsByFilmId(int fId)throws SQLException;
+
 	public int deleteFilm(Integer filmId) throws Exception;
 	
 }
