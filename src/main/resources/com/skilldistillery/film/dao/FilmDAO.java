@@ -14,5 +14,6 @@ public interface FilmDAO {
 	public List<Film> findFilmByKeyword(String filmKeyword);
 	public int addFilm(Film film);
 	public int updateFilm(Film film);
+	public int deleteFilm(Integer filmId) throws Exception;
 	
 }

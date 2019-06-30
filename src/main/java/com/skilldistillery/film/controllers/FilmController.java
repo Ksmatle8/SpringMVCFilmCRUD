@@ -1,5 +1,6 @@
 package com.skilldistillery.film.controllers;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -71,6 +72,19 @@ public class FilmController {
 		mv.addObject("film", film);
 		mv.setViewName("WEB-INF/forms/update.jsp");
 		return mv;
+	}
+	@RequestMapping(path = "delete.do", method = RequestMethod.POST)
+	public ModelAndView delete(@RequestParam("FID")int  filmId) throws Exception {
+		ModelAndView mv = new ModelAndView();
+		try {
+			dao.deleteFilm(filmId);
+			mv.setViewName("WEB-INF/deleteFilm.jsp");
+		} catch (SQLException e) {
+			mv.setViewName("error");
+			e.printStackTrace();
+		}
+		return mv;
+
 	}
 	
 	

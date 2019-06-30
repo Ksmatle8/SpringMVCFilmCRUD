@@ -111,16 +111,16 @@ public class JDBCFilmDAOImpl implements FilmDAO {
 
 			String sql = "INSERT INTO film (title, description, language_id, release_year, rating) VALUE (?, ?, 1, ?, ?)";
 			PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-			
+
 			stmt.setString(1, film.getTitle());
 			stmt.setString(2, film.getDescription());
 			stmt.setInt(3, film.getReleaseYear());
 			stmt.setString(4, film.getRating());
 
 			int uc = stmt.executeUpdate();
-			
+
 			ResultSet keys = stmt.getGeneratedKeys();
-			while(keys.next()) {
+			while (keys.next()) {
 				int newId = keys.getInt(1);
 				System.out.println(newId);
 				unusedId = newId;
@@ -134,38 +134,62 @@ public class JDBCFilmDAOImpl implements FilmDAO {
 		}
 		return unusedId;
 	}
-	
+
 	public int updateFilm(Film film) {
 		Film newFilm = null;
 		int unusedId = 0;
 		try {
 			Connection conn = DriverManager.getConnection(URL, user, pass);
 			conn.setAutoCommit(false);
-			
+
 			String sql = "UPDATE film Set title = ?, description = ?, release_year = ?, rating = ? WHERE id = ?";
 			PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-			
+
 			stmt.setString(1, film.getTitle());
 			stmt.setString(2, film.getDescription());
 			stmt.setInt(3, film.getReleaseYear());
 			stmt.setString(4, film.getRating());
 			stmt.setInt(5, film.getId());
-			
+
 			int uc = stmt.executeUpdate();
-			
+
 			ResultSet keys = stmt.getGeneratedKeys();
-			while(keys.next()) {
+			while (keys.next()) {
 				int newId = keys.getInt(1);
 				unusedId = newId;
 			}
 			conn.commit();
 			conn.close();
 			stmt.close();
-			
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return unusedId;
 	}
-	
+
+	@Override
+	public int deleteFilm(Integer filmId) throws SQLException {
+		Connection conn = null;
+		try {
+			conn = DriverManager.getConnection(URL, user, pass);
+			conn.setAutoCommit(false);
+
+			String sql = "DELETE FROM film WHERE id=?";
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+
+			pstmt.setInt(1, filmId);
+			int uc = pstmt.executeUpdate();
+			conn.commit();
+			return uc;
+		} catch (SQLException e) {
+			System.out.println("Film cannot be deleted");
+			conn.rollback();
+
+		} finally {
+			conn.close();
+		}
+		return filmId;
+	}
+
 }
