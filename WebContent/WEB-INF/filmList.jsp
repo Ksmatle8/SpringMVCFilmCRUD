@@ -30,6 +30,6 @@
 			<p>No Films Found</p>
 		</c:otherwise>
 	</c:choose>
-
+<a href="index.html">Go Home</a>
 </body>
 </html>
