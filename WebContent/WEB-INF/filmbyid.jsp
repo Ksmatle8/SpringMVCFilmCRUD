@@ -12,26 +12,30 @@
 <title>Find Film By Id</title>
 </head>
 <body>
-  <c:choose>
-   <c:when test="${! empty film }">
-	<h1>${film.title}</h1>
-	<ul>
-	<li>Description: ${film.description}</li>
-	<li>Release year: ${film.releaseYear}</li>
-	<li>Language: ${film.languageId}</li>
-	<li>Rental Duration: ${film.rentalDuration}</li>
-	<li>Rental Rate: ${film.rentalRate}</li>
-	<li>Length: ${film.length}</li>
-	<li>Replacement Cost: ${film.replacementCost}</li>
-	<li>Rating: ${film.rating}</li>
-	<li>Special Features: ${film.specialFeatures}</li>
-	</ul>
-	</c:when>
-	<c:otherwise>
-	<p>No Films Found</p>
-	</c:otherwise>
-  </c:choose>
-  <a href="update.jsp">Edit Film Information</a><br>
+  <form action="updatePage.do" method="POST" >
+	  <c:choose>
+	   <c:when test="${! empty film }">
+		<h1>${film.title}</h1>
+		<ul>
+		<li>Description: ${film.description}</li>
+		<li>Release year: ${film.releaseYear}</li>
+		<li>Language: ${film.languageId}</li>
+		<li>Rental Duration: ${film.rentalDuration}</li>
+		<li>Rental Rate: ${film.rentalRate}</li>
+		<li>Length: ${film.length}</li>
+		<li>Replacement Cost: ${film.replacementCost}</li>
+		<li>Rating: ${film.rating}</li>
+		<li>Special Features: ${film.specialFeatures}</li>
+		</ul>
+		</c:when>
+		<c:otherwise>
+		<p>No Films Found</p>
+		</c:otherwise>
+	  </c:choose>
+
+  	<input type="submit" value="Edit Film">Edit Film Information<br>
+  </form>
+  
   <a href="index.html">Go Home</a>
 </body>
 </html>
