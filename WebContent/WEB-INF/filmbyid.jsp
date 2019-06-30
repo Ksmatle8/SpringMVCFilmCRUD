@@ -27,13 +27,14 @@
 		<li>Rating: ${film.rating}</li>
 		<li>Special Features: ${film.specialFeatures}</li>
 		</ul>
+		<input type="hidden" name="FID" value=${film.id}>
+  		<input type="submit" value="Edit Film">Edit Film Information<br>
 		</c:when>
 		<c:otherwise>
 		<p>No Films Found</p>
 		</c:otherwise>
 	  </c:choose>
 
-  	<input type="submit" value="Edit Film">Edit Film Information<br>
   </form>
   
   <a href="index.html">Go Home</a>

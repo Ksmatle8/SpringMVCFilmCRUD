@@ -52,18 +52,19 @@ public class FilmController {
     }
 	
 	@RequestMapping(path="update.do", method=RequestMethod.POST)
-	public ModelAndView updateFilm(Film film) {
-		int newId = dao.updateFilm(film);
-		Film updatedFilm = dao.findFilmById(newId);
+	public ModelAndView updateFilm(Film filmToUpdate) {
+		int newId = dao.updateFilm(filmToUpdate);
+		Film film = dao.findFilmById(newId);
 		ModelAndView mv = new ModelAndView();
-		mv.addObject("film", updatedFilm);
+		mv.addObject("film", film);
 		mv.setViewName("WEB-INF/displayNewFilm.jsp");
 		return mv;
 	}
 	
 	@RequestMapping(path="updatePage.do", method=RequestMethod.POST)
-	public ModelAndView updatePage(Film film) {
+	public ModelAndView updatePage(@RequestParam("FID") int fid) {
 		ModelAndView mv = new ModelAndView();
+		Film film = dao.findFilmById(fid);
 		mv.addObject("film", film);
 		mv.setViewName("WEB-INF/forms/update.jsp");
 		return mv;
