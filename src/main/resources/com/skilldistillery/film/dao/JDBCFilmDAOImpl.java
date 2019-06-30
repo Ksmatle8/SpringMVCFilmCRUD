@@ -222,4 +222,24 @@ public class JDBCFilmDAOImpl implements FilmDAO {
 		}
 		return filmId;
 	}
+	public String findCategory(int fID) {
+		String category = "";
+		try {
+			Connection conn = DriverManager.getConnection(URL, user, pass);
+			String sql = "SELECT film.id, category.name FROM film "
+					+ "JOIN category WHERE film.id = category.id and film.id = ?";
+			PreparedStatement stmt = conn.prepareStatement(sql);
+			stmt.setInt(1, fID);
+			ResultSet catResult = stmt.executeQuery();
+			while (catResult.next()) {
+				category = catResult.getString(2);
+			}
+			catResult.close();
+			stmt.close();
+			conn.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return category;
+	}
 }

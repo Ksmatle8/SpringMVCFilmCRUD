@@ -17,7 +17,7 @@ public interface FilmDAO {
 	public int addFilm(Film film);
 	public int updateFilm(Film film);
 	public List<Actor> findActorsByFilmId(int fId)throws SQLException;
-
+	public String findCategory(int fID);
 	public int deleteFilm(Integer filmId) throws Exception;
 	
 }
