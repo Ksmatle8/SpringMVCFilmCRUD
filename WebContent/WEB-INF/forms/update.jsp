@@ -21,7 +21,7 @@
 	<form action="update.do" method="POST">
         <label for="title">Title:</label><input type="text" name="title" value="${film.title}">
         <br> <label for="description">Description:</label><input
-            type="" name="description" value="${film.description}"> <br> 
+            type="text" name="description" value="${film.description}"> <br> 
             <label for="releaseYear">Release Year:</label> <input type="number"
             name="releaseYear" value="${film.releaseYear}"> <br>
         <h3>Choose a rating:</h3>
@@ -30,7 +30,9 @@
             type="radio" name="rating" value="PG13">PG13</label> <label><input
             type="radio" name="rating" value="R">R</label> <label><input
             type="radio" name="rating" value="NC17">"NC17"</label> <br> 
+            <input type="hidden" name="id" value=${film.id}>
             <input type="submit" value="Update">
     </form>
+     <a href="index.html">Go Home</a>
 </body>
 </html>

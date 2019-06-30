@@ -142,7 +142,7 @@ public class JDBCFilmDAOImpl implements FilmDAO {
 			Connection conn = DriverManager.getConnection(URL, user, pass);
 			conn.setAutoCommit(false);
 			
-			String sql = "UPDATE film Set title = ?, description = ?, release_year = ?, rating = ?, WHERE id = ?;";
+			String sql = "UPDATE film Set title = ?, description = ?, release_year = ?, rating = ? WHERE id = ?";
 			PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 			
 			stmt.setString(1, film.getTitle());
