@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.skilldistillery.film.dao.FilmDAO;
+import com.skilldistillery.film.entities.Actor;
 import com.skilldistillery.film.entities.Film;
 
 @Controller
@@ -20,14 +21,28 @@ public class FilmController {
 	private FilmDAO dao;
 
 	@RequestMapping(path = "findfilmbyid.do", method = RequestMethod.GET)
-	public ModelAndView getFilmByID(@RequestParam("FID") int fid) {
+	public ModelAndView getFilmByID(@RequestParam(name = "FID") int fid) {
 		ModelAndView mv = new ModelAndView();
-		System.out.println(fid);
-		Film film = dao.findFilmById(fid);
-		mv.addObject("film", film);
-		mv.setViewName("WEB-INF/filmbyid.jsp");
-		
+		Film f;
+		List<Actor> actors;
+		try {
+			f = dao.findFilmById(fid);
+			mv.addObject("film", f);
+			actors = dao.findActorsByFilmId(fid);
+			mv.addObject("actors", actors);
+			mv.setViewName("WEB-INF/filmbyid.jsp");
+		} catch  (SQLException e) {
+			mv.setViewName("error");
+			e.printStackTrace();
+		}
 		return mv;
+
+//		System.out.println(fid);
+//		Film film = dao.findFilmById(fid);
+//		mv.addObject("film", film);
+//		mv.setViewName("WEB-INF/filmbyid.jsp");
+//		
+//		return mv;
 	}
 	
 
@@ -74,9 +89,7 @@ public class FilmController {
 		mv.setViewName("WEB-INF/forms/update.jsp");
 		return mv;
 	}
-<<<<<<< HEAD
 
-=======
 	@RequestMapping(path = "delete.do", method = RequestMethod.POST)
 	public ModelAndView delete(@RequestParam("FID")int  filmId) throws Exception {
 		ModelAndView mv = new ModelAndView();
@@ -92,7 +105,6 @@ public class FilmController {
 	}
 	
 	
->>>>>>> 9c041ea3cfae859f9ba5dc891fe67dda05255ac3
 //	@RequestMapping(path="DeleteFilm.do", method=RequestMethod.POST)
 //	public ModelAndView deleteFilmById(int filmId) {
 //	try {
